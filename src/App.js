@@ -1,7 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { useQuery, gql } from "@apollo/client";
+import { useEffect } from 'react';
+
+const GET_DATA = gql`
+  query Query {
+    message
+  }
+`;
 
 function App() {
+  const { loading, error, data } = useQuery(GET_DATA);
+
+  useEffect(() => {
+    console.log('useeffect', data)
+  }, [data])
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <div className="App">
       <header className="App-header">
